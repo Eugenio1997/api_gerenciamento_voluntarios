@@ -1,5 +1,6 @@
+from datetime import datetime
 from typing import Dict, List
-from app.schemas.volunteer import VolunteerResponse
+from app.schemas.volunteer import VolunteerBase, VolunteerResponse
 from app.utils.filters import VolunteerFilters
 
 DATABASE: List[Dict] = [
@@ -11,7 +12,8 @@ DATABASE: List[Dict] = [
         "status": "active",
         "availability": "morning",
         "phone": "(11) 91234-5678",
-        "active": True
+        "active": True,
+        "registration_date": datetime.now()
     },
     {
         "id": 2,
@@ -21,7 +23,8 @@ DATABASE: List[Dict] = [
         "status": "active",
         "availability": "afternoon",
         "phone": "(11) 92345-6789",
-        "active": True
+        "active": True,
+        "registration_date": datetime.now()
     },
     {
         "id": 3,
@@ -31,7 +34,8 @@ DATABASE: List[Dict] = [
         "status": "inactive",
         "availability": "full_time",
         "phone": "(11) 93456-7890",
-        "active": False  # soft delete
+        "active": False,
+        "registration_date": datetime.now()
     },
     {
         "id": 4,
@@ -41,7 +45,8 @@ DATABASE: List[Dict] = [
         "status": "active",
         "availability": "night",
         "phone": "(11) 94567-8901",
-        "active": True
+        "active": True,
+        "registration_date": datetime.now()
     },
     {
         "id": 5,
@@ -51,17 +56,19 @@ DATABASE: List[Dict] = [
         "status": "active",
         "availability": "morning",
         "phone": "(11) 95678-9012",
-        "active": True
+        "active": True,
+        "registration_date": datetime.now()
     }
 ]
 
-
-CURRENT_ID = 1
+latest_id = max(v["id"] for v in DATABASE)
+CURRENT_ID = latest_id
 
 
 def get_all_volunteers(filters: VolunteerFilters) -> List[VolunteerResponse]:
     result = DATABASE.copy()
 
+    
     if filters.desired_role:
         result = [
             v for v in result 
@@ -81,3 +88,30 @@ def get_all_volunteers(filters: VolunteerFilters) -> List[VolunteerResponse]:
         ]
 
     return [VolunteerResponse(**v) for v in result]
+
+
+
+def create_volunteer(data: VolunteerBase) -> VolunteerResponse:
+   
+    for v in DATABASE:
+        if v["email"] == data.email:
+            raise ValueError("E-mail já está cadastrado.")
+
+    global CURRENT_ID
+    CURRENT_ID += 1
+
+    new_volunteer = {
+        "id": CURRENT_ID,
+        "name": data.name,
+        "email": data.email,
+        "phone": data.phone,
+        "desired_role": data.desired_role.value,
+        "availability": data.availability.value,
+        "status": data.status.value,
+        "registration_date": datetime.now(),
+        "active": True
+    }
+
+    DATABASE.append(new_volunteer)
+
+    return VolunteerResponse(**new_volunteer)
