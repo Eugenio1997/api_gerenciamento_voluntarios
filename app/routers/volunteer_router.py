@@ -15,15 +15,15 @@ router = APIRouter(
 
 
 @router.get("/", response_model=List[VolunteerResponse])
-def list_volunteers(filters: VolunteerFilters = Depends()):
+def list_volunteers_endpoint(filters: VolunteerFilters = Depends()):
     return get_all_volunteers(filters)
 
 @router.get("/{volunteer_id}", response_model=VolunteerResponse)
-def list_volunteers(volunteer_id: int):
+def list_volunteers_endpoint(volunteer_id: int):
     return get_volunteer_by_id(volunteer_id)
 
 @router.post("/", response_model=VolunteerResponse, status_code=201)
-def add_volunteer(data: VolunteerBase):
+def add_volunteer_endpoint(data: VolunteerBase):
     try:
         return create_volunteer(data)
     except ValueError as e:
