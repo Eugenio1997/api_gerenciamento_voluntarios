@@ -27,6 +27,31 @@ A solução também deve demonstrar organização, boas práticas e clareza de c
 
 ---
 
+## 🚀 Requisitos Técnicos
+
+### 1. Estrutura da API
+
+#### 🔗 Endpoints obrigatórios:
+
+```txt
+POST    /voluntarios        - Cadastrar novo voluntário
+GET     /voluntarios        - Listar voluntários (com filtros)
+GET     /voluntarios/{id}   - Buscar voluntário específico
+PUT     /voluntarios/{id}   - Atualizar voluntário
+DELETE  /voluntarios/{id}   - Excluir voluntário (soft delete)
+```
+
+---
+
+## 2. Funcionalidades
+
+- ✅ **Validação de email único** (não permitir duplicatas)  
+- 🗓️ **Data de inscrição automática**  
+- 🟦 **Soft delete** (marcar como inativo em vez de excluir)  
+- 🔍 **Filtros** por status, cargo e disponibilidade  
+- ✔️ **Validações básicas nos campos**
+
+
 ## 📁 Estrutura do Projeto
 
 ```
@@ -68,38 +93,6 @@ uvicorn app.main:app --reload
 
 ---
 
-## 🛠 Funcionalidades Implementadas
-
-### 🔹 `GET /`
-Retorna uma mensagem simples indicando que a API está online.
-
-### 🔹 `GET /voluntarios`
-Retorna a lista de voluntários cadastrados.
-
-### 🔹 `POST /voluntarios`
-Cadastra um novo voluntário conforme o modelo especificado.
-
-#### Exemplo de Corpo JSON:
-```json
-{
-  "nome": "Ana Souza",
-  "email": "ana.souza@fusion.com",
-  "telefone": "67 996267123"
-}
-```
-
-#### Exemplo de Resposta:
-```json
-{
-  "message": "Voluntário cadastrado com sucesso!",
-  "data": {
-    "nome": "Ana Souza",
-    "email": "ana.souza@fusion.com",
-    "telefone": "67 996267123"
-  }
-}
-```
-
 ---
 
 ## 🧱 Modelos e Regras
@@ -107,9 +100,12 @@ Cadastra um novo voluntário conforme o modelo especificado.
 ### Modelo `Voluntario`
 ```python
 class Voluntario(BaseModel):
-    nome: str
-    email: str
-    telefone: str
+    nome
+    email
+    telefone
+    cargo_pretendido 
+    disponibilidade 
+    status 
 ```
 
 ### Observações
