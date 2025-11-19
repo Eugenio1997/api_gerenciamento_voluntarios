@@ -1,5 +1,7 @@
 from datetime import datetime
 from typing import Dict, List
+
+from fastapi import HTTPException
 from app.schemas.volunteer import VolunteerBase, VolunteerResponse
 from app.utils.filters import VolunteerFilters
 
@@ -89,6 +91,14 @@ def get_all_volunteers(filters: VolunteerFilters) -> List[VolunteerResponse]:
 
     return [VolunteerResponse(**v) for v in result]
 
+
+def get_volunteer_by_id(volunteer_id: int) -> VolunteerResponse:
+    for v in DATABASE:
+        if v["id"] == volunteer_id:
+            return VolunteerResponse(**v)
+
+    # Se não encontrar, lança 404
+    raise HTTPException(status_code=404, detail="Voluntário não encontrado.")
 
 
 def create_volunteer(data: VolunteerBase) -> VolunteerResponse:
