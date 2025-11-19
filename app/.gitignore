@@ -1,0 +1,44 @@
+# ────────────────────────────────────────────────
+# Python
+# ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.so
+
+# Virtual environments
+venv/
+.venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs
+*.log
+
+# IDE / Editor configs
+.vscode/
+.idea/
+*~ 
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# FastAPI / Uvicorn
+*.pid
+
+# Byte-compiled / Cache
+.cache/
+.mypy_cache/
+.pytest_cache/
+pytestdebug.log
+
+# Local environment/config files
+.env
+.env.*
