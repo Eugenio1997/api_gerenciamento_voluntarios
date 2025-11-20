@@ -4,6 +4,7 @@ from app.schemas.volunteer import VolunteerBase, VolunteerResponse
 from app.utils.filters import VolunteerFilters
 from app.services.volunteer_service import (
     create_volunteer,
+    delete_volunteer,
     get_all_volunteers,
     get_volunteer_by_id,
     update_volunteer
@@ -33,3 +34,8 @@ def add_volunteer_endpoint(data: VolunteerBase):
 @router.put("/{volunteer_id}")
 def update_volunteer_endpoint(volunteer_id: int, data: VolunteerBase):
     return update_volunteer(volunteer_id, data)
+
+
+@router.delete("/{volunteer_id}", status_code=204)
+def delete_volunteer_endpoint(volunteer_id: int):
+    return delete_volunteer(volunteer_id)

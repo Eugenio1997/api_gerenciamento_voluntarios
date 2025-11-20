@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Dict, List
 
 from fastapi import HTTPException
+from app.schemas.enums import StatusEnum
 from app.schemas.volunteer import VolunteerBase, VolunteerResponse
 from app.utils.filters import VolunteerFilters
 
@@ -151,4 +152,12 @@ def update_volunteer(volunteer_id: int, data: VolunteerBase) -> VolunteerRespons
             DATABASE[index] = updated_volunteer
             return VolunteerResponse(**updated_volunteer)
 
+    raise HTTPException(status_code=404, detail="Voluntário não encontrado.")
+
+
+def delete_volunteer(volunteer_id: int) -> None:
+    for v in DATABASE:
+        if v["id"] == volunteer_id:
+            v["status"] = StatusEnum.inactive.value
+            return
     raise HTTPException(status_code=404, detail="Voluntário não encontrado.")
