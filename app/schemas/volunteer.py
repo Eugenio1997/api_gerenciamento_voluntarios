@@ -40,8 +40,9 @@ class VolunteerBase(BaseModel):
         description="Status atual do voluntário"
     )
 
-    class Config:
-        populate_by_name = True  # permite enviar inglês e exibir português
+    model_config = {
+        "populate_by_name": True
+    }
 
 
 class VolunteerResponse(VolunteerBase):
