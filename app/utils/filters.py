@@ -1,13 +1,27 @@
+from fastapi import Query
 from typing import Optional
-from pydantic import BaseModel
-from app.schemas.enums import (
-    DesiredRoleEnum,
-    AvailabilityEnum,
-    StatusEnum,
-)
+from app.schemas.enums import DesiredRoleEnum, AvailabilityEnum, StatusEnum
 
 
-class VolunteerFilters(BaseModel):
-    desired_role: Optional[DesiredRoleEnum] = None
-    availability: Optional[AvailabilityEnum] = None
-    status: Optional[StatusEnum] = None
+class VolunteerFilters:
+    def __init__(
+        self,
+        desired_role: Optional[DesiredRoleEnum] = Query(
+            None,
+            alias="papel_desejado",
+            description="Filtrar pelo papel desejado do voluntário."
+        ),
+        availability: Optional[AvailabilityEnum] = Query(
+            None,
+            alias="disponibilidade",
+            description="Filtrar pela disponibilidade do voluntário."
+        ),
+        status: Optional[StatusEnum] = Query(
+            None,
+            alias="status",
+            description="Filtrar pelo status do voluntário."
+        ),
+    ):
+        self.desired_role = desired_role
+        self.availability = availability
+        self.status = status
