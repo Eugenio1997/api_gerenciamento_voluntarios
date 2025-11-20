@@ -5,7 +5,8 @@ from app.utils.filters import VolunteerFilters
 from app.services.volunteer_service import (
     create_volunteer,
     get_all_volunteers,
-    get_volunteer_by_id
+    get_volunteer_by_id,
+    update_volunteer
 )
 
 router = APIRouter(
@@ -29,3 +30,6 @@ def add_volunteer_endpoint(data: VolunteerBase):
     except ValueError as e:
         raise HTTPException(status_code=409, detail=str(e))
     
+@router.put("/{volunteer_id}")
+def update_volunteer_endpoint(volunteer_id: int, data: VolunteerBase):
+    return update_volunteer(volunteer_id, data)

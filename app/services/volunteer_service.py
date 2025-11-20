@@ -125,3 +125,30 @@ def create_volunteer(data: VolunteerBase) -> VolunteerResponse:
     DATABASE.append(new_volunteer)
 
     return VolunteerResponse(**new_volunteer)
+
+
+def update_volunteer(volunteer_id: int, data: VolunteerBase) -> VolunteerResponse:
+    for index, v in enumerate(DATABASE):
+        if v["id"] == volunteer_id:
+
+            # Verifica e-mail único (não pode ser de outro voluntário)
+            for other in DATABASE:
+                if other["email"] == data.email and other["id"] != volunteer_id:
+                    raise HTTPException(status_code=409, detail="E-mail já está cadastrado por outro voluntário.")
+
+            updated_volunteer = {
+                "id": volunteer_id,
+                "name": data.name,
+                "email": data.email,
+                "phone": data.phone,
+                "desired_role": data.desired_role.value,
+                "availability": data.availability.value,
+                "status": data.status.value,
+                "registration_date": v["registration_date"],
+                "active": v["active"]
+            }
+
+            DATABASE[index] = updated_volunteer
+            return VolunteerResponse(**updated_volunteer)
+
+    raise HTTPException(status_code=404, detail="Voluntário não encontrado.")
