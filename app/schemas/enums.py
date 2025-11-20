@@ -1,21 +1,20 @@
 from enum import Enum
 
-
 class DesiredRoleEnum(str, Enum):
-    developer = "developer"
+    developer = "desenvolvedor"
     designer = "designer"
-    analyst = "analyst"
-    scrum_master = "scrum_master"
+    analyst = "analista"
+    scrum_master = "scrum master"
 
 
 class AvailabilityEnum(str, Enum):
-    morning = "morning"
-    afternoon = "afternoon"
-    night = "night"
-    full_time = "full_time"
+    morning = "manhã"
+    afternoon = "tarde"
+    night = "noite"
+    full_time = "tempo_integral"
 
 
 class StatusEnum(str, Enum):
-    active = "active"
-    inactive = "inactive"
-    pending = "pending"
+    active = "ativo"
+    inactive = "inativo"
+    pending = "pendente"

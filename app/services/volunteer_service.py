@@ -71,23 +71,22 @@ CURRENT_ID = latest_id
 def get_all_volunteers(filters: VolunteerFilters) -> List[VolunteerResponse]:
     result = DATABASE.copy()
 
-    
     if filters.desired_role:
         result = [
             v for v in result 
-            if v["desired_role"] == filters.desired_role.value
+            if v["desired_role"] == filters.desired_role.name
         ]
 
     if filters.availability:
         result = [
             v for v in result
-            if v["availability"] == filters.availability.value
+            if v["availability"] == filters.availability.name
         ]
 
     if filters.status:
         result = [
             v for v in result
-            if v["status"] == filters.status.value
+            if v["status"] == filters.status.name
         ]
 
     return [VolunteerResponse(**v) for v in result]
@@ -98,12 +97,10 @@ def get_volunteer_by_id(volunteer_id: int) -> VolunteerResponse:
         if v["id"] == volunteer_id:
             return VolunteerResponse(**v)
 
-    # Se não encontrar, lança 404
     raise HTTPException(status_code=404, detail="Voluntário não encontrado.")
 
 
 def create_volunteer(data: VolunteerBase) -> VolunteerResponse:
-   
     for v in DATABASE:
         if v["email"] == data.email:
             raise ValueError("E-mail já está cadastrado.")
@@ -116,9 +113,9 @@ def create_volunteer(data: VolunteerBase) -> VolunteerResponse:
         "name": data.name,
         "email": data.email,
         "phone": data.phone,
-        "desired_role": data.desired_role.value,
-        "availability": data.availability.value,
-        "status": data.status.value,
+        "desired_role": data.desired_role.name,
+        "availability": data.availability.name,
+        "status": data.status.name,
         "registration_date": datetime.now(),
         "active": True
     }
@@ -132,7 +129,6 @@ def update_volunteer(volunteer_id: int, data: VolunteerBase) -> VolunteerRespons
     for index, v in enumerate(DATABASE):
         if v["id"] == volunteer_id:
 
-            # Verifica e-mail único (não pode ser de outro voluntário)
             for other in DATABASE:
                 if other["email"] == data.email and other["id"] != volunteer_id:
                     raise HTTPException(status_code=409, detail="E-mail já está cadastrado por outro voluntário.")
@@ -142,9 +138,9 @@ def update_volunteer(volunteer_id: int, data: VolunteerBase) -> VolunteerRespons
                 "name": data.name,
                 "email": data.email,
                 "phone": data.phone,
-                "desired_role": data.desired_role.value,
-                "availability": data.availability.value,
-                "status": data.status.value,
+                "desired_role": data.desired_role.name,
+                "availability": data.availability.name,
+                "status": data.status.name,
                 "registration_date": v["registration_date"],
                 "active": v["active"]
             }
@@ -158,6 +154,7 @@ def update_volunteer(volunteer_id: int, data: VolunteerBase) -> VolunteerRespons
 def delete_volunteer(volunteer_id: int) -> None:
     for v in DATABASE:
         if v["id"] == volunteer_id:
-            v["status"] = StatusEnum.inactive.value
+            v["status"] = StatusEnum.inactive.name
             return
+
     raise HTTPException(status_code=404, detail="Voluntário não encontrado.")
