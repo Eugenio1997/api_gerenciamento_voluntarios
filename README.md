@@ -72,22 +72,30 @@ api_gerenciamento_voluntarios/
 
 ## 📦 Instalação e Execução
 
-### 🔹 1. Instalar dependências
+### 🔹 1. Pré-requisitos
+```bash
+# Instale o Poetry se não tiver
+curl -sSL https://install.python-poetry.org | python3 -
+# ou
+pip install poetry
+```
+
+### 🔹 2. Criar ambiente + instalar dependências
 ```bash
 poetry install
 ```
 
-### 🔹 2. Ativar ambiente virtual
+### 🔹 3. Ativar ambiente virtual
 ```bash
 poetry shell
 ```
 
-### 🔹 3. Executar servidor FastAPI
+### 🔹 4. Executar servidor Uvicorn (servidor ASGI)
 ```bash
-uvicorn app.main:app --reload
+poetry run uvicorn app.main:app --reload
 ```
 
-### 🔹 4. Acessar documentação automática
+### 🔹 5. Acessar documentação automática
 - Swagger UI → http://127.0.0.1:8000/docs  
 - ReDoc → http://127.0.0.1:8000/redoc  
 
@@ -134,17 +142,6 @@ Facilitando manutenção e futuras expansões.
 
 ### ✔ Documentação Automática
 FastAPI automaticamente expõe a UI Swagger e Redoc, atendendo ao requisito de clareza e testabilidade.
-
----
-
-## 📌 Próximos Passos (Melhorias Futuras)
-
-- Persistência em banco de dados (SQLite/PostgreSQL)
-- Camada de serviços (separando regras de negócio)
-- Camada de repositório (abstraindo acesso a dados)
-- Testes unitários com `pytest`
-- Deploy (Render, Railway, EC2 ou Docker)
-- Tratamento de erros customizado com `ExceptionHandlers`
 
 ---
 
