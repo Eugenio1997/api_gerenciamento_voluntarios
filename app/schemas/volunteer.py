@@ -24,8 +24,8 @@ class VolunteerBase(BaseModel):
 
     desired_role: str = Field(
         ...,
-        alias="funcao_desejada",
-        description="Função desejada pelo voluntário"
+        alias="cargo_pretendido",
+        description="Cargo pretendido pelo voluntário"
     )
 
     availability: str = Field(

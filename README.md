@@ -122,7 +122,7 @@ Content-Type: application/json
   "nome": "Mariana Alves",
   "email": "mariana.alves@example.com",
   "telefone": "(11) 98888-7777",
-  "funcao_desejada": "desenvolvedor",
+  "cargo_pretendido": "desenvolvedor",
   "disponibilidade": "manhã",
   "status": "ativo"
 }
@@ -135,7 +135,7 @@ Content-Type: application/json
   "nome": "Mariana Alves",
   "email": "mariana.alves@example.com",
   "telefone": "(11) 98888-7777",
-  "funcao_desejada": "developer",
+  "cargo_pretendido": "developer",
   "disponibilidade": "morning",
   "status": "active",
   "data_registro": "2025-11-20T19:40:10.123Z"
@@ -148,7 +148,7 @@ Content-Type: application/json
 
 ### 📤 Request
 ```http
-GET /voluntarios?status=ativo&funcao_desejada=desenvolvedor
+GET /voluntarios?status=ativo&cargo_pretendido=desenvolvedor
 ```
 
 ### 📥 Response — 200 OK
@@ -159,7 +159,7 @@ GET /voluntarios?status=ativo&funcao_desejada=desenvolvedor
     "nome": "Maria Silva",
     "email": "maria.silva@example.com",
     "telefone": "(11) 91234-5678",
-    "funcao_desejada": "developer",
+    "cargo_pretendido": "developer",
     "disponibilidade": "morning",
     "status": "active",
     "data_registro": "2025-11-20T18:20:30.550Z"
@@ -183,7 +183,7 @@ GET /voluntarios/1
   "nome": "Maria Silva",
   "email": "maria.silva@example.com",
   "telefone": "(11) 91234-5678",
-  "funcao_desejada": "desenvolvedor",
+  "cargo_pretendido": "desenvolvedor",
   "disponibilidade": "manhã",
   "status": "ativo",
   "data_registro": "2025-11-20T18:20:30.550Z"
@@ -205,7 +205,7 @@ Content-Type: application/json
   "nome": "Maria Silva",
   "email": "maria.silva@example.com",
   "telefone": "(11) 99999-2222",
-  "funcao_desejada": "desenvolvedor",
+  "cargo_pretendido": "desenvolvedor",
   "disponibilidade": "tarde",
   "status": "ativo"
 }
@@ -218,7 +218,7 @@ Content-Type: application/json
   "nome": "Maria Silva",
   "email": "maria.silva@example.com",
   "telefone": "(11) 99999-2222",
-  "funcao_desejada": "developer",
+  "cargo_pretendido": "developer",
   "disponibilidade": "afternoon",
   "status": "active",
   "data_registro": "2025-11-20T18:20:30.550Z"
@@ -283,7 +283,7 @@ class Voluntario(BaseModel):
     name: str = Field(..., alias="nome")
     email: EmailStr = Field(..., alias="email")
     phone: str = Field(..., alias="telefone")
-    desired_role: str = Field(..., alias="funcao_desejada")
+    desired_role: str = Field(..., alias="cargo_pretendido")
     availability: str = Field(..., alias="disponibilidade")
     status: str = Field(..., alias="status")
     registration_date: datetime = Field(..., alias="data_registro")

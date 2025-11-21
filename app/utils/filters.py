@@ -8,8 +8,8 @@ class VolunteerFilters:
         self,
         desired_role: Optional[DesiredRoleEnum] = Query(
             None,
-            alias="papel_desejado",
-            description="Filtrar pelo papel desejado do voluntário."
+            alias="cargo_pretendido",
+            description="Filtrar pelo cargo pretendido do voluntário."
         ),
         availability: Optional[AvailabilityEnum] = Query(
             None,
