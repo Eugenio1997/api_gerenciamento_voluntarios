@@ -31,7 +31,7 @@ A solução também deve demonstrar organização, boas práticas e clareza de c
 
 ### 1. Estrutura da API
 
-#### 🔗 Endpoints disponíveis:
+#### Endpoints disponíveis:
 
 ```txt
 POST    /voluntarios        - Cadastrar novo voluntário
@@ -45,15 +45,16 @@ DELETE  /voluntarios/{id}   - Excluir voluntário (soft delete)
 
 ### 2. Funcionalidades
 
-- ✅ **Validação de email único** (não permitir duplicatas)  
-- 🗓️ **Data de inscrição automática**  
-- 🟦 **Soft delete** (marcar como inativo em vez de excluir)  
-- 🔍 **Filtros** por status, cargo e disponibilidade  
-- ✔️ **Validações básicas nos campos**
+-  **Validação de email único** (não permitir duplicatas)  
+-  **Data de inscrição automática**  
+-  **Soft delete** (marcar como inativo em vez de excluir)  
+-  **Filtros** por status, cargo e disponibilidade  
+-  **Validações básicas nos campos**
 
 ---
 
 ## 🧱 Decisões Técnicas
+
 ✔ Alias em português nos modelos (Pydantic v2)
 
 Permite manter atributos internos em inglês mas expor nomes em PT-BR.
@@ -109,9 +110,9 @@ poetry run pytest -vv
 
 ---
 
-## 🎯 1. Criar voluntário — POST /voluntarios
+## 1. 🎯 Criar voluntário — POST /voluntarios
 
-### 📤 Request
+### Request
 ```http
 POST /voluntarios
 Content-Type: application/json
@@ -128,7 +129,7 @@ Content-Type: application/json
 }
 ```
 
-### 📥 Response — 201 Created
+### Response — 201 Created
 ```json
 {
   "id": 6,
@@ -144,14 +145,14 @@ Content-Type: application/json
 
 ---
 
-## 🟩 2. Listar voluntários com filtros
+## 2. Listar voluntários com filtros
 
-### 📤 Request
+### Request
 ```http
 GET /voluntarios?status=ativo&cargo_pretendido=desenvolvedor
 ```
 
-### 📥 Response — 200 OK
+### Response — 200 OK
 ```json
 [
   {
@@ -169,14 +170,14 @@ GET /voluntarios?status=ativo&cargo_pretendido=desenvolvedor
 
 ---
 
-## 🔎 3. Buscar voluntário por ID
+## 3. Buscar voluntário por ID
 
-### 📤 Request
+### Request
 ```http
 GET /voluntarios/1
 ```
 
-### 📥 Response — 200 OK
+### Response — 200 OK
 ```json
 {
   "id": 1,
@@ -192,9 +193,9 @@ GET /voluntarios/1
 
 ---
 
-## 🛠️ 4. Atualizar voluntário
+## 4. Atualizar voluntário
 
-### 📤 Request
+### Request
 ```http
 PUT /voluntarios/1
 Content-Type: application/json
@@ -211,7 +212,7 @@ Content-Type: application/json
 }
 ```
 
-### 📥 Response
+### Response
 ```json
 {
   "id": 1,
@@ -227,14 +228,14 @@ Content-Type: application/json
 
 ---
 
-## 🗑️ 5. Soft Delete
+## 5. Soft Delete
 
-### 📤 Request
+### Request
 ```http
 DELETE /voluntarios/1
 ```
 
-### 📥 Response — 204 No Content
+### Response — 204 No Content
 
 Internamente o status muda para:
 ```json
@@ -243,9 +244,9 @@ Internamente o status muda para:
 
 ---
 
-## 📦 Instalação e Execução
+## Instalação e Execução
 
-### 🔹 1. Pré-requisitos
+### 1. Pré-requisitos
 ```bash
 # Instale o Poetry se não tiver
 curl -sSL https://install.python-poetry.org | python3 -
@@ -253,28 +254,28 @@ curl -sSL https://install.python-poetry.org | python3 -
 pip install poetry
 ```
 
-### 🔹 2. Criar ambiente + instalar dependências
+### 2. Criar ambiente + instalar dependências
 ```bash
 poetry install
 ```
 
-### 🔹 3. Ativar ambiente virtual
+### 3. Ativar ambiente virtual
 ```bash
 poetry shell
 ```
 
-### 🔹 4. Executar servidor Uvicorn (servidor ASGI)
+### 4. Executar servidor Uvicorn (servidor ASGI)
 ```bash
 poetry run uvicorn app.main:app --reload
 ```
 
-### 🔹 5. Acessar documentação automática
+### 5. Acessar documentação automática
 - Swagger UI → http://127.0.0.1:8000/docs  
 - ReDoc → http://127.0.0.1:8000/redoc  
 
 ---
 
-## 🧱 Modelos e Regras
+## Modelos e Regras
 
 ### Modelo `Voluntario`
 A API utiliza modelos Pydantic com alias em português.
@@ -291,51 +292,32 @@ class Voluntario(BaseModel):
 
 ---
 
-🧱 Decisões Técnicas
-✔ Alias em português nos modelos (Pydantic v2)
-
-Permite manter atributos internos em inglês mas expor nomes em PT-BR.
-
-✔ Soft delete
-
-Nenhum voluntário é removido — apenas marcado como inativo.
-
-✔ Filtros
-
-Implementados usando classe de dependência VolunteerFilters.
-
-✔ Armazenamento em memória
-
-Simula um banco de dados, conforme desafio.
-
----
-
 ## 🧩 Organização Modular
 
 A API foi estruturada de forma modular, garantindo clareza, separação de responsabilidades e fácil expansão futura.
 
-### 📁 **Rotas (`routers/`)**
+### **Rotas (`routers/`)**
 Contém os endpoints da aplicação.  
 Exemplo: `volunteer_router.py`.
 
-### 📦 **Modelos e Validações (`schemas/`)**
+### **Modelos e Validações (`schemas/`)**
 Inclui:
 - Modelos Pydantic (`volunteer.py`)
 - Enums utilizados pela API (`enums.py`)
 
-### ⚙️ **Serviços (`services/`)**
+### **Serviços (`services/`)**
 Implementa as regras de negócio e operações.  
 Exemplo: `volunteer_service.py`.
 
-### 🛠 **Utilidades (`utils/`)**
+### **Utilidades (`utils/`)**
 Funções auxiliares, como `filters.py`.
 
-### 🧪 **Testes Automatizados (`tests/`)**
+### **Testes Automatizados (`tests/`)**
 Diretório dedicado aos testes com Pytest.
 - `conftest.py`
 - `test_services/`
 
-### 🚀 **Arquivo Principal (`main.py`)**
+### **Arquivo Principal (`main.py`)**
 Ponto de entrada da API.
 
 Essa separação facilita a manutenção, amplia a legibilidade e permite a expansão do projeto de forma organizada e escalável.
