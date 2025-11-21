@@ -135,9 +135,9 @@ Content-Type: application/json
   "nome": "Mariana Alves",
   "email": "mariana.alves@example.com",
   "telefone": "(11) 98888-7777",
-  "cargo_pretendido": "developer",
-  "disponibilidade": "morning",
-  "status": "active",
+  "cargo_pretendido": "desenvolvedor",
+  "disponibilidade": "manhã",
+  "status": "ativo",
   "data_registro": "2025-11-20T19:40:10.123Z"
 }
 ```
@@ -159,9 +159,9 @@ GET /voluntarios?status=ativo&cargo_pretendido=desenvolvedor
     "nome": "Maria Silva",
     "email": "maria.silva@example.com",
     "telefone": "(11) 91234-5678",
-    "cargo_pretendido": "developer",
-    "disponibilidade": "morning",
-    "status": "active",
+    "cargo_pretendido": "desenvolvedor",
+    "disponibilidade": "manhã",
+    "status": "ativo",
     "data_registro": "2025-11-20T18:20:30.550Z"
   }
 ]
@@ -218,9 +218,9 @@ Content-Type: application/json
   "nome": "Maria Silva",
   "email": "maria.silva@example.com",
   "telefone": "(11) 99999-2222",
-  "cargo_pretendido": "developer",
-  "disponibilidade": "afternoon",
-  "status": "active",
+  "cargo_pretendido": "desenvolvedor",
+  "disponibilidade": "tarde",
+  "status": "ativo",
   "data_registro": "2025-11-20T18:20:30.550Z"
 }
 ```
@@ -238,7 +238,7 @@ DELETE /voluntarios/1
 
 Internamente o status muda para:
 ```json
-{ "status": "inactive" }
+{ "status": "inativo" }
 ```
 
 ---
