@@ -74,19 +74,19 @@ def get_all_volunteers(filters: VolunteerFilters) -> List[VolunteerResponse]:
     if filters.desired_role:
         result = [
             v for v in result 
-            if v["desired_role"] == filters.desired_role.name
+            if v["desired_role"] == filters.desired_role.value
         ]
 
     if filters.availability:
         result = [
             v for v in result
-            if v["availability"] == filters.availability.name
+            if v["availability"] == filters.availability.value
         ]
 
     if filters.status:
         result = [
             v for v in result
-            if v["status"] == filters.status.name
+            if v["status"] == filters.status.value
         ]
 
     return [VolunteerResponse(**v) for v in result]
@@ -113,9 +113,9 @@ def create_volunteer(data: VolunteerBase) -> VolunteerResponse:
         "name": data.name,
         "email": data.email,
         "phone": data.phone,
-        "desired_role": data.desired_role.name,
-        "availability": data.availability.name,
-        "status": data.status.name,
+        "desired_role": data.desired_role,
+        "availability": data.availability,
+        "status": data.status,
         "registration_date": datetime.now(),
         "active": True
     }
@@ -138,9 +138,9 @@ def update_volunteer(volunteer_id: int, data: VolunteerBase) -> VolunteerRespons
                 "name": data.name,
                 "email": data.email,
                 "phone": data.phone,
-                "desired_role": data.desired_role.name,
-                "availability": data.availability.name,
-                "status": data.status.name,
+                "desired_role": data.desired_role,
+                "availability": data.availability,
+                "status": data.status,
                 "registration_date": v["registration_date"],
                 "active": v["active"]
             }
@@ -154,7 +154,7 @@ def update_volunteer(volunteer_id: int, data: VolunteerBase) -> VolunteerRespons
 def delete_volunteer(volunteer_id: int) -> None:
     for v in DATABASE:
         if v["id"] == volunteer_id:
-            v["status"] = StatusEnum.inactive.name
+            v["status"] = StatusEnum.inactive.value
             return
 
     raise HTTPException(status_code=404, detail="Voluntário não encontrado.")
