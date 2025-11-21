@@ -100,9 +100,9 @@ app
 ---
 
 ## 🧪 Testes Automatizados
-
---- poetry run pytest -vv
-
+```
+poetry run pytest -vv
+```
 ---
 
 ## 📘 Exemplos de Requests & Responses
@@ -310,31 +310,33 @@ Simula um banco de dados, conforme desafio.
 
 ---
 
-### ✔ Organização Modular
+## 🧩 Organização Modular
 
-A API foi organizada em uma estrutura modular, separando responsabilidades de forma clara:
+A API foi estruturada de forma modular, garantindo clareza, separação de responsabilidades e fácil expansão futura.
 
-Rotas (routers/)
-Contém os endpoints da aplicação, como o volunteer_router.py.
+### 📁 **Rotas (`routers/`)**
+Contém os endpoints da aplicação.  
+Exemplo: `volunteer_router.py`.
 
-Modelos e Validações (schemas/)
-Inclui os modelos Pydantic (volunteer.py) e os enums utilizados pela API (enums.py).
+### 📦 **Modelos e Validações (`schemas/`)**
+Inclui:
+- Modelos Pydantic (`volunteer.py`)
+- Enums utilizados pela API (`enums.py`)
 
-Serviços (services/)
-Implementa as regras de negócio e operações da aplicação, como o volunteer_service.py.
+### ⚙️ **Serviços (`services/`)**
+Implementa as regras de negócio e operações.  
+Exemplo: `volunteer_service.py`.
 
-Utilidades (utils/)
-Inclui funções auxiliares, como filtros usados em operações internas.
+### 🛠 **Utilidades (`utils/`)**
+Funções auxiliares, como `filters.py`.
 
-Testes Automatizados (tests/)
-Estrutura dedicada aos testes com Pytest, contendo:
+### 🧪 **Testes Automatizados (`tests/`)**
+Diretório dedicado aos testes com Pytest.
+- `conftest.py`
+- `test_services/`
 
-conftest.py para configuração do ambiente de testes
-
-Testes organizados em submódulos, como test_services/.
-
-Arquivo Principal (main.py)
-Ponto de entrada da aplicação FastAPI, responsável por iniciar a API e registrar as rotas.
+### 🚀 **Arquivo Principal (`main.py`)**
+Ponto de entrada da API.
 
 Essa separação facilita a manutenção, amplia a legibilidade e permite a expansão do projeto de forma organizada e escalável.
 
